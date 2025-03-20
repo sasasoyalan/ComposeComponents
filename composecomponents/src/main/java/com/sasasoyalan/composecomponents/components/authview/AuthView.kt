@@ -1,4 +1,4 @@
-package com.kullanici.composecomponents.auth
+package com.sasasoyalan.composecomponents.components.authview
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions

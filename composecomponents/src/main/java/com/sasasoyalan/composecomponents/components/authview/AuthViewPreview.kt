@@ -3,7 +3,10 @@ package com.sasasoyalan.composecomponents.components.authview
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import com.kullanici.composecomponents.auth.AuthView
+
+/**
+ * Created by Sacid Soyalan
+ */
 
 @Preview(showBackground = true)
 @Composable
