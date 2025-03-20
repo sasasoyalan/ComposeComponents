@@ -1,0 +1,48 @@
+name: Auto Release and Update README
+
+on:
+  push:
+    branches:
+      - main  # Eğer başka bir branch kullanıyorsan burayı değiştir
+
+jobs:
+  update-readme-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Read version from gradle.properties
+        id: get_version
+        run: echo "VERSION=$(grep 'VERSION' gradle.properties | cut -d'=' -f2 | tr -d ' ')" >> $GITHUB_ENV
+
+      - name: Update README.md with latest version
+        run: |
+          sed -i "s/\*\*Current version:\*\* \`.*\`/\*\*Current version:\*\* \`${{ env.VERSION }}\`/" README.md
+          sed -i "s|implementation(\"com.github.sasasoyalan:ComposeComponents:.*\")|implementation(\"com.github.sasasoyalan:ComposeComponents:${{ env.VERSION }}\")|" README.md
+
+      - name: Commit and Push Updated README
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add README.md
+          git commit -m "📌 Update README.md to version ${{ env.VERSION }}"
+          git push origin main
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ env.VERSION }}
+          release_name: "Release v${{ env.VERSION }}"
+          body: "New release version v${{ env.VERSION }} is now available!"
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
