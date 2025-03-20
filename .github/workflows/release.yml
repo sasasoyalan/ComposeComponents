@@ -3,10 +3,10 @@ name: Auto Release and Update README
 on:
   push:
     branches:
-      - main  # 🔥 Sadece main'e merge edilince çalışacak
+      - main
   pull_request:
     branches:
-      - main  # 🔥 PR açıldığında kontrol edecek
+      - main
 
 jobs:
   update-readme-and-release:
@@ -37,4 +37,16 @@ jobs:
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           git add README.md
-          
+          git diff --cached --quiet || git commit -m "📌 Update README.md to version ${{ env.VERSION }}"
+          git push origin main
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ env.VERSION }}
+          release_name: "Release v${{ env.VERSION }}"
+          body: "New release version v${{ env.VERSION }} is now available!"
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
