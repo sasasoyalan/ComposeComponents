@@ -3,7 +3,10 @@ name: Auto Release and Update README
 on:
   push:
     branches:
-      - main
+      - main  # 🔥 Release işlemi sadece main'e yapılan merge sonrası çalışacak
+  pull_request:
+    branches:
+      - main  # 🔥 PR açıldığında kontrol edecek
 
 jobs:
   update-readme-and-release:
