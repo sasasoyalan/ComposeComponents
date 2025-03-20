@@ -1,6 +1,5 @@
 package com.sasasoyalan.composecomponents.components.piechart3dview
 
-import android.graphics.Typeface
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -112,7 +111,6 @@ fun PieChart3DView(
                 val topLeft = Offset(center.x - radius + shiftX, center.y - radius + shiftY)
                 val size = Size(radius * 2, radius * 2)
 
-                // **✅ ALT GÖLGE (GERÇEK 3D ETKİSİ)**
                 drawArc(
                     color = slice.color.copy(alpha = 0.3f),
                     startAngle = angles.first,
@@ -122,7 +120,6 @@ fun PieChart3DView(
                     size = size
                 )
 
-                // **✅ SOLDAKİ GÖLGE (GERÇEK DERİNLİK)**
                 val midAngle = (angles.first + angles.second) / 2
                 if (midAngle in 90f..270f) { // Sadece sol taraf gölgeli olacak
                     drawArc(
@@ -135,7 +132,6 @@ fun PieChart3DView(
                     )
                 }
 
-                // **✅ ANA PIE CHART DİLİMİ**
                 drawArc(
                     color = slice.color,
                     startAngle = angles.first,
@@ -145,13 +141,10 @@ fun PieChart3DView(
                     size = size
                 )
 
-                // **✅ YÜZDELİK DEĞERLERİN HESAPLANMASI**
                 val percentage = ((slice.value / total) * 100).toInt()
 
-                // **✅ DİNAMİK METİN RENGİ (Açık renkler için siyah, koyu renkler için beyaz)**
                 val textColor = if (slice.color.luminance() > 0.6f) Color.Black else Color.White
 
-                // **✅ ETİKETLERİN ORTAYA YAZILMASI (Yüzde)**
                 val textAngleRad = Math.toRadians(((angles.first + angles.second) / 2).toDouble())
                 val textX = (center.x + (radius / 2) * cos(textAngleRad)).toFloat()
                 val textY = (center.y + (radius / 2) * sin(textAngleRad)).toFloat()
