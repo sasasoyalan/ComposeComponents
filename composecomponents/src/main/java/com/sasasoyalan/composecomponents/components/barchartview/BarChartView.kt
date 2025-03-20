@@ -50,6 +50,7 @@ fun BarChartView(
     xAxisLabel: String = "X Axis",
     yAxisLabel: String = "Y Axis",
     axisColor: Color = Color.Gray,
+    onBarSelected: ((BarChartData?) -> Unit)? = null
 ) {
     val maxValue = data.maxOf { it.yValue }
     var selectedBar by remember { mutableStateOf<BarChartData?>(null) }
@@ -95,6 +96,7 @@ fun BarChartView(
                         val right = left + barWidth
                         if (offset.x in left..right) {
                             selectedBar = bar
+                            onBarSelected?.invoke(selectedBar)
                             displayJob?.cancel()
                             displayJob = scope.launch {
                                 delay(1500)
