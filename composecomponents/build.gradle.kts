@@ -84,9 +84,9 @@ tasks.register("publishSnapshot") {
     }
 }
 
-tasks.register("updateReadmeVersion") {
+tasks.register("updateReadmeVersionAndPush") {
     doLast {
-        val stableVersion = "${project.property("VERSION_MAJOR")}.${project.property("VERSION_MINOR")}.${project.property("VERSION_PATCH")}"
+        val stableVersion = "${project.findProperty("VERSION_MAJOR")}.${project.findProperty("VERSION_MINOR")}.${project.findProperty("VERSION_PATCH")}"
 
         val readmeFile = File(rootProject.rootDir, "README.md")
 
@@ -95,17 +95,26 @@ tasks.register("updateReadmeVersion") {
 
             val updatedReadme = readmeText
                 .replace(
-                    Regex("""\*\*Current version:\*\* `.*?`"""),
+                    Regex("""\*\*Current version:\*\* `\d+\.\d+\.\d+`"""),
                     "**Current version:** `$stableVersion`"
                 )
                 .replace(
-                    Regex("""implementation\("com.github.sasasoyalan:ComposeComponents:.*?"\)"""),
+                    Regex("""implementation\("com.github.sasasoyalan:ComposeComponents:\d+\.\d+\.\d+"\)"""),
                     """implementation("com.github.sasasoyalan:ComposeComponents:$stableVersion")"""
                 )
 
             readmeFile.writeText(updatedReadme)
-        }
 
-        println("✅ README.md updated to version: $stableVersion")
+            println("✅ README.md updated to version: $stableVersion")
+
+            val process = ProcessBuilder("bash", "-c", """
+                git add README.md &&
+                git commit -m "📌 Update README.md to version $stableVersion" &&
+                git push origin main
+            """).start()
+
+            process.inputStream.bufferedReader().forEachLine { println(it) }
+            process.waitFor()
+        }
     }
 }
