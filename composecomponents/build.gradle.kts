@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.sasasoyalan.composecomponents"
-    compileSdk = 35
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 26
