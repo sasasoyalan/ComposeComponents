@@ -83,3 +83,29 @@ tasks.register("publishSnapshot") {
         println("✅ Taze SNAPSHOT versiyonu çıktııı: $snapshotVersion")
     }
 }
+
+tasks.register("updateReadmeVersion") {
+    doLast {
+        val stableVersion = "${project.property("VERSION_MAJOR")}.${project.property("VERSION_MINOR")}.${project.property("VERSION_PATCH")}"
+
+        val readmeFile = File(rootProject.rootDir, "README.md")
+
+        if (readmeFile.exists()) {
+            val readmeText = readmeFile.readText()
+
+            val updatedReadme = readmeText
+                .replace(
+                    Regex("""\*\*Current version:\*\* `.*?`"""),
+                    "**Current version:** `$stableVersion`"
+                )
+                .replace(
+                    Regex("""implementation\("com.github.sasasoyalan:ComposeComponents:.*?"\)"""),
+                    """implementation("com.github.sasasoyalan:ComposeComponents:$stableVersion")"""
+                )
+
+            readmeFile.writeText(updatedReadme)
+        }
+
+        println("✅ README.md updated to version: $stableVersion")
+    }
+}
