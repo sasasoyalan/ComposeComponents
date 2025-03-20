@@ -38,15 +38,15 @@ jobs:
           git config --global user.email "github-actions@github.com"
           git add README.md
           git diff --cached --quiet || git commit -m "📌 Update README.md to version ${{ env.VERSION }}"
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: v${{ env.VERSION }}
-          release_name: "Release v${{ env.VERSION }}"
+          name: "Release v${{ env.VERSION }}"
           body: "New release version v${{ env.VERSION }} is now available!"
           draft: false
           prerelease: false
