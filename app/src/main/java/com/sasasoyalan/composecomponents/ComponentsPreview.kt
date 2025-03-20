@@ -1,10 +1,9 @@
 package com.sasasoyalan.composecomponents
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -13,9 +12,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -35,10 +34,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.sasasoyalan.composecomponents.components.authview.AuthViewPreview
 
 /**
  * Created by Sacid Soyalan
@@ -54,23 +53,19 @@ fun ComponentsPreview() {
     var searchText by remember { mutableStateOf("") }
     var selectedComponent by remember { mutableStateOf<ComponentItem?>(null) }
 
-    val components = listOf(
-        ComponentItem("AuthView", { AuthViewPreview() })
-    )
-
-    val filteredComponents = components.filter {
+    val filteredComponents = getComponents().filter {
         it.name.contains(searchText, ignoreCase = true)
     }
 
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(16.dp)) {
-        Text("Komponent Listesi", fontSize = 24.sp, modifier = Modifier.padding(bottom = 8.dp))
+        Text("Component List", fontSize = 24.sp, modifier = Modifier.padding(bottom = 8.dp), fontFamily = FontFamily.Serif,)
 
         OutlinedTextField(
             value = searchText,
             onValueChange = { searchText = it },
-            label = { Text("Komponent ara..") },
+            label = { Text("Search component..") },
             singleLine = true,
             leadingIcon = { Icon(Icons.Default.Search, contentDescription = "Search Icon") },
             shape = RoundedCornerShape(12.dp),
@@ -82,22 +77,7 @@ fun ComponentsPreview() {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        filteredComponents.forEach { component ->
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 4.dp)
-                    .clickable { selectedComponent = component },
-                colors = CardDefaults.cardColors(containerColor = Color(0xFFF3F3F3)),
-                shape = RoundedCornerShape(8.dp)
-            ) {
-                Text(
-                    text = component.name,
-                    fontSize = 18.sp,
-                    modifier = Modifier.padding(12.dp)
-                )
-            }
-        }
+        ComponentList(filteredComponents) { selectedComponent = it }
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -131,6 +111,7 @@ fun ComponentsPreview() {
                 },
                 shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
                 containerColor = Color.White,
+                modifier = Modifier.padding(bottom = 48.dp)
             ) {
                 Column(
                     modifier = Modifier
@@ -142,15 +123,60 @@ fun ComponentsPreview() {
 
                     Text(
                         text = selectedComponent!!.name,
-                        fontSize = 22.sp,
+                        fontSize = 18.sp,
                         color = Color.Black,
+                        fontFamily = FontFamily.Serif,
                         modifier = Modifier.padding(bottom = 16.dp)
                     )
 
-                    selectedComponent!!.view()
+                    Card(
+                        colors = CardDefaults.cardColors(containerColor = Color.White),
+                        shape = RoundedCornerShape(1.dp),
+                        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+                    ) {
+                        selectedComponent!!.view()
+                    }
                 }
             }
         }
 
+    }
+}
+
+@Composable
+fun ComponentList(filteredComponents: List<ComponentItem>, onSelect: (ComponentItem) -> Unit) {
+    Column(modifier = Modifier.fillMaxSize().padding(4.dp)) {
+        filteredComponents.forEach { component ->
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 6.dp)
+                    .clickable { onSelect(component) },
+                colors = CardDefaults.cardColors(containerColor = Color.White),
+                shape = RoundedCornerShape(12.dp),
+                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = component.name,
+                        fontSize = 16.sp,
+                        color = Color.Black,
+                        fontFamily = FontFamily.Serif,
+                        modifier = Modifier.weight(1f)
+                    )
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowForward,
+                        contentDescription = "Navigate Icon",
+                        tint = Color.Gray,
+                        modifier = Modifier.size(20.dp)
+                    )
+                }
+            }
+        }
     }
 }
