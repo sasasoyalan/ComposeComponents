@@ -3,7 +3,7 @@ name: Auto Release and Update README
 on:
   push:
     branches:
-      - main  # Eğer başka bir branch kullanıyorsan burayı değiştir
+      - main
 
 jobs:
   update-readme-and-release:
