@@ -3,7 +3,7 @@ name: Auto Release and Update README
 on:
   push:
     branches:
-      - main  # 🔥 Release işlemi sadece main'e yapılan merge sonrası çalışacak
+      - main  # 🔥 Sadece main'e merge edilince çalışacak
   pull_request:
     branches:
       - main  # 🔥 PR açıldığında kontrol edecek
@@ -24,7 +24,8 @@ jobs:
 
       - name: Read version from gradle.properties
         id: get_version
-        run: echo "VERSION=$(grep 'VERSION' gradle.properties | cut -d'=' -f2 | tr -d ' ')" >> $GITHUB_ENV
+        run: |
+          echo "VERSION=$(awk -F'=' '/VERSION_MAJOR/ {major=$2} /VERSION_MINOR/ {minor=$2} /VERSION_PATCH/ {patch=$2} END {print major"."minor"."patch}' gradle.properties)" >> $GITHUB_ENV
 
       - name: Update README.md with latest version
         run: |
@@ -36,16 +37,4 @@ jobs:
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           git add README.md
-          git commit -m "📌 Update README.md to version ${{ env.VERSION }}"
-          git push origin main
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: v${{ env.VERSION }}
-          release_name: "Release v${{ env.VERSION }}"
-          body: "New release version v${{ env.VERSION }} is now available!"
-          draft: false
-          prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
