@@ -44,12 +44,13 @@ data class BarChartData(val xLabel: String, val yValue: Float, val tag: String =
 @Composable
 fun BarChartView(
     data: List<BarChartData>,
-    heightDp: Dp = 400.dp,
+    heightDp: Dp = 350.dp,
     barColor: Color = Color(0xFF6200EE),
     selectedBarColor: Color = Color.Red,
     xAxisLabel: String = "X Axis",
     yAxisLabel: String = "Y Axis",
     axisColor: Color = Color.Gray,
+    onBarSelected: ((BarChartData?) -> Unit)? = null
 ) {
     val maxValue = data.maxOf { it.yValue }
     var selectedBar by remember { mutableStateOf<BarChartData?>(null) }
@@ -59,8 +60,8 @@ fun BarChartView(
 
     val height = if (heightDp <= 250.dp) {
         250.dp
-    } else if (heightDp >= 750.dp) {
-        750.dp
+    } else if (heightDp >= 500.dp) {
+        500.dp
     } else heightDp
 
     LaunchedEffect(Unit) {
@@ -95,9 +96,10 @@ fun BarChartView(
                         val right = left + barWidth
                         if (offset.x in left..right) {
                             selectedBar = bar
+                            onBarSelected?.invoke(selectedBar)
                             displayJob?.cancel()
                             displayJob = scope.launch {
-                                delay(2000)
+                                delay(1500)
                                 selectedBar = null
                             }
                         }
@@ -167,7 +169,7 @@ fun BarChartView(
                             topLeft = Offset(left + barWidth/4, top),
                             size = Size(barWidth, bottom - top),
                             cornerRadius = CornerRadius(16f, 16f),
-                            style = Stroke(width = 4f)
+                            style = Stroke(width = 8f)
                         )
                     }
 
