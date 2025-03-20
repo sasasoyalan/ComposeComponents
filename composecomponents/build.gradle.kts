@@ -2,7 +2,11 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("maven-publish")
 }
+
+val timestamp = System.currentTimeMillis().toString().takeLast(6)
+val snapshotVersion = "${project.property("VERSION_MAJOR")}.${project.property("VERSION_MINOR")}.$timestamp-SNAPSHOT"
 
 android {
     namespace = "com.sasasoyalan.composecomponents"
@@ -25,7 +29,7 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17 //
+        sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
 
@@ -37,28 +41,45 @@ android {
     }
 }
 
+publishing {
+    publications {
+        create<MavenPublication>("release") {
+            groupId = "com.sasasoyalan"
+            artifactId = "ComposeComponents"
+            version = snapshotVersion
+            afterEvaluate { from(components["release"]) }
+        }
+    }
+    repositories {
+        mavenLocal()
+    }
+}
+
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.ui.tooling.preview.android)
 
-    implementation(libs.ui) // UI bileşenleri için
-    implementation(libs.material3) // Material3 kullanımı için
+    implementation(libs.ui)
+    implementation(libs.material3)
 
-    // **Kotlin Standart Kütüphanesi**
     implementation(libs.kotlin.stdlib)
 
-    // **Jetpack Compose Compiler (Olmazsa hata verir!)**
     implementation("androidx.compose.compiler:compiler:1.5.15")
 
-    // **Compose UI bağımlılıkları eksikse düzeltilmeli**
     implementation("androidx.compose.ui:ui:1.6.3")
     implementation("androidx.compose.foundation:foundation:1.6.3")
     implementation("androidx.compose.material3:material3:1.2.0")
 
-    // **Testler için bağımlılıklar**
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+}
+
+tasks.register("publishSnapshot") {
+    dependsOn("clean", "build", "publishToMavenLocal")
+    doLast {
+        println("✅ Taze SNAPSHOT versiyonu çıktııı: $snapshotVersion")
+    }
 }

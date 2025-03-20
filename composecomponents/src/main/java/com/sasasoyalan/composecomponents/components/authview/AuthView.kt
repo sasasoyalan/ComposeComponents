@@ -21,6 +21,7 @@ fun AuthView(
     emailPlaceholder: String,
     passwordPlaceholder: String,
     buttonText: String,
+    modifier: Modifier = Modifier,
     textColor: Color = Color.Black,
     buttonColor: Color = Color.Blue,
     buttonTextColor: Color = Color.White,
@@ -42,7 +43,7 @@ fun AuthView(
     val isFormValid = isEmailValid && isPasswordValid
 
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         OutlinedTextField(
