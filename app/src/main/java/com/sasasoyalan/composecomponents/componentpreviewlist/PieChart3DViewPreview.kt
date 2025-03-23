@@ -1,12 +1,14 @@
-package com.sasasoyalan.composecomponents.components.piechart3dview
+package com.sasasoyalan.composecomponents.componentpreviewlist
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import com.sasasoyalan.composecomponents.components.piechart3dview.PieChart3DView
+import com.sasasoyalan.composecomponents.components.piechart3dview.PieChart3DViewData
 
 @Preview(showBackground = true)
 @Composable
-fun PieChart3DViewPreview() {
+internal fun PieChart3DViewPreview() {
     PieChart3DView(
         listOf(
             PieChart3DViewData("Bursa", 30f, Color.Blue),

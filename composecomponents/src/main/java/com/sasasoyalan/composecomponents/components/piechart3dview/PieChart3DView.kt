@@ -41,18 +41,14 @@ import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
 
-
-data class PieChart3DViewData(
-    val label: String,
-    val value: Float,
-    val color: Color
-)
-
+/**
+ * Created by Sacid Soyalan
+ */
 @Composable
 fun PieChart3DView(
     data: List<PieChart3DViewData>,
-    pieSize: Dp = 250.dp,
     modifier: Modifier = Modifier,
+    pieSize: Dp = 250.dp,
     onSliceSelected: ((PieChart3DViewData?) -> Unit)? = null
 ) {
     val total = data.sumOf { it.value.toDouble() }.toFloat()
@@ -252,6 +248,12 @@ fun adjustBrightnessRGB(color: Color, factor: Float): Color {
 
     return Color(red, green, blue, color.alpha)
 }
+
+data class PieChart3DViewData(
+    val label: String,
+    val value: Float,
+    val color: Color
+)
 
 
 

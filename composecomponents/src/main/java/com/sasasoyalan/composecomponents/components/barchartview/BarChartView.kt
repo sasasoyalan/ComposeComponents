@@ -41,6 +41,9 @@ import kotlinx.coroutines.launch
 
 data class BarChartData(val xLabel: String, val yValue: Float, val tag: String = "")
 
+/**
+ * Created by Sacid Soyalan
+ */
 @Composable
 fun BarChartView(
     data: List<BarChartData>,
