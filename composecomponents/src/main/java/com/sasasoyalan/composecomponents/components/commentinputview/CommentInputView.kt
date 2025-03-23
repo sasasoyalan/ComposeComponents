@@ -33,6 +33,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+/**
+ * Created by Sacid Soyalan
+ */
 @Composable
 fun CommentInputView(
     minChars: Int = 3,

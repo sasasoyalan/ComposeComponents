@@ -1,11 +1,13 @@
-package com.sasasoyalan.composecomponents.components.barchartview
+package com.sasasoyalan.composecomponents.componentpreviewlist
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.sasasoyalan.composecomponents.components.barchartview.BarChartData
+import com.sasasoyalan.composecomponents.components.barchartview.BarChartView
 
 @Preview(showBackground = true)
 @Composable
-fun BarChartViewPreview() {
+internal fun BarChartViewPreview() {
     BarChartView(
         data = listOf(
             BarChartData("ahmet", 4f, "A Önemli"),

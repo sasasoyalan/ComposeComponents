@@ -1,8 +1,9 @@
-package com.sasasoyalan.composecomponents.components.authview
+package com.sasasoyalan.composecomponents.componentpreviewlist
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import com.sasasoyalan.composecomponents.components.authview.AuthView
 
 /**
  * Created by Sacid Soyalan
@@ -10,7 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @Preview(showBackground = true)
 @Composable
-fun AuthViewPreview() {
+internal fun AuthViewPreview() {
     AuthView(
         emailPlaceholder = "E-Posta",
         passwordPlaceholder = "Şifre",

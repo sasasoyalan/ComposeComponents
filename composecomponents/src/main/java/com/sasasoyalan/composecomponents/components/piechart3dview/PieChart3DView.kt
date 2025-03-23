@@ -41,18 +41,14 @@ import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
 
-
-data class PieChart3DViewData(
-    val label: String,
-    val value: Float,
-    val color: Color
-)
-
+/**
+ * Created by Sacid Soyalan
+ */
 @Composable
 fun PieChart3DView(
     data: List<PieChart3DViewData>,
-    pieSize: Dp = 250.dp,
     modifier: Modifier = Modifier,
+    pieSize: Dp = 250.dp,
     onSliceSelected: ((PieChart3DViewData?) -> Unit)? = null
 ) {
     val total = data.sumOf { it.value.toDouble() }.toFloat()
@@ -121,9 +117,9 @@ fun PieChart3DView(
                 )
 
                 val midAngle = (angles.first + angles.second) / 2
-                if (midAngle in 90f..270f) { // Sadece sol taraf gölgeli olacak
+                if (midAngle in 90f..270f) {
                     drawArc(
-                        color = slice.color.copy(alpha = 0.4f),
+                        color = slice.color.copy(alpha = 0.3f),
                         startAngle = angles.first,
                         sweepAngle = angles.second - angles.first,
                         useCenter = false,
@@ -131,6 +127,44 @@ fun PieChart3DView(
                         size = size
                     )
                 }
+            }
+
+            angleMap.forEach { (slice, angles) ->
+                val isSelected = slice == selectedSlice
+                val shiftDistance = if (isSelected) 30f else 0f
+                val angleInRad = Math.toRadians(((angles.first + angles.second) / 2).toDouble())
+                val shiftX = cos(angleInRad).toFloat() * shiftDistance
+                val shiftY = sin(angleInRad).toFloat() * shiftDistance
+
+                val topLeft = Offset(center.x - radius + shiftX, center.y - radius + shiftY)
+                val bottomLeft = Offset(topLeft.x, topLeft.y + depth)
+
+                drawArc(
+                    color = slice.color.copy(alpha = 0.3f),
+                    startAngle = angles.first,
+                    sweepAngle = angles.second - angles.first,
+                    useCenter = false,
+                    topLeft = bottomLeft,
+                    size = Size(radius * 2, radius * 2)
+                )
+
+                drawLine(
+                    color = slice.color.copy(alpha = 0.3f),
+                    start = Offset(topLeft.x + radius, topLeft.y),
+                    end = Offset(bottomLeft.x + radius, bottomLeft.y),
+                    strokeWidth = 3f
+                )
+            }
+
+            angleMap.forEach { (slice, angles) ->
+                val isSelected = slice == selectedSlice
+                val shiftDistance = if (isSelected) 30f else 0f
+                val angleInRad = Math.toRadians(((angles.first + angles.second) / 2).toDouble())
+                val shiftX = cos(angleInRad).toFloat() * shiftDistance
+                val shiftY = sin(angleInRad).toFloat() * shiftDistance
+
+                val topLeft = Offset(center.x - radius + shiftX, center.y - radius + shiftY)
+                val size = Size(radius * 2, radius * 2)
 
                 drawArc(
                     color = slice.color,
@@ -214,6 +248,12 @@ fun adjustBrightnessRGB(color: Color, factor: Float): Color {
 
     return Color(red, green, blue, color.alpha)
 }
+
+data class PieChart3DViewData(
+    val label: String,
+    val value: Float,
+    val color: Color
+)
 
 
 
