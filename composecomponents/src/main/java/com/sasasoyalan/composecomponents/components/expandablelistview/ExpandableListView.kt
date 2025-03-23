@@ -1,4 +1,4 @@
-package com.sasasoyalan.composecomponents.components.expandableview
+package com.sasasoyalan.composecomponents.components.expandablelistview
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -21,10 +20,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
-import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowRight
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
@@ -41,6 +37,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -50,6 +47,7 @@ fun <T> ExpandableListView(
     itemList: List<T>,
     itemContent: @Composable (T) -> Unit,
     modifier: Modifier = Modifier,
+    badgeColor: Color = Color.Red,
     addDivider: Boolean = true,
     initiallyExpanded: Boolean = false,
     onExpanded: ((Boolean) -> Unit)? = null
@@ -97,12 +95,12 @@ fun <T> ExpandableListView(
                         .padding(end = 4.dp)
                         .size(30.dp)
                         .clip(CircleShape)
-                        .background(Color.Red),
+                        .background(badgeColor),
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
                         text = "${itemList.size}",
-                        color = Color.White,
+                        color = if (badgeColor.luminance() > 0.6f) Color.Black else Color.White,
                         fontSize = 16.sp
                     )
                 }

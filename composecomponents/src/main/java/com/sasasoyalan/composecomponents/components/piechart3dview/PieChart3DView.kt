@@ -177,7 +177,7 @@ fun PieChart3DView(
 
                 val percentage = ((slice.value / total) * 100).toInt()
 
-                val textColor = if (slice.color.luminance() > 0.6f) Color.Black else Color.White
+                val textColor = if (slice.color.luminance() > 0.6f) android.graphics.Color.BLACK else android.graphics.Color.WHITE
 
                 val textAngleRad = Math.toRadians(((angles.first + angles.second) / 2).toDouble())
                 val textX = (center.x + (radius / 2) * cos(textAngleRad)).toFloat()
@@ -188,7 +188,7 @@ fun PieChart3DView(
                     textX,
                     textY,
                     android.graphics.Paint().apply {
-                        color = if (textColor == Color.Black) android.graphics.Color.BLACK else android.graphics.Color.WHITE
+                        color = textColor
                         textSize = 32f
                         textAlign = android.graphics.Paint.Align.CENTER
                     }
