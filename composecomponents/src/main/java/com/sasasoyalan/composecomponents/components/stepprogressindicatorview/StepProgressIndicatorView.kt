@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -89,8 +90,12 @@ fun StepProgressIndicatorView(
 
         Spacer(modifier = Modifier.height(24.dp))
 
+        val rememberedContents = remember(stepContents) {
+            stepContents.map { content -> mutableStateOf(content) }
+        }
+
         Box(modifier = Modifier.fillMaxWidth()) {
-            stepContents.getOrNull(currentStepIndex)?.invoke()
+            rememberedContents.getOrNull(currentStepIndex)?.value?.invoke()
         }
 
         Spacer(modifier = Modifier.height(24.dp))

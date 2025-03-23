@@ -1,4 +1,4 @@
-package com.sasasoyalan.composecomponents.componentpreviewlist
+package com.sasasoyalan.composecomponents.componentpreviews
 
 import android.widget.Toast
 import androidx.compose.foundation.background

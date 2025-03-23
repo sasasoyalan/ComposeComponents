@@ -1,4 +1,4 @@
-package com.sasasoyalan.composecomponents.componentpreviewlist
+package com.sasasoyalan.composecomponents.componentpreviews
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color

@@ -1,11 +1,12 @@
 package com.sasasoyalan.composecomponents
 
-import com.sasasoyalan.composecomponents.componentpreviewlist.AuthViewPreview
-import com.sasasoyalan.composecomponents.componentpreviewlist.BarChartViewPreview
-import com.sasasoyalan.composecomponents.componentpreviewlist.CommentInputViewPreview
-import com.sasasoyalan.composecomponents.componentpreviewlist.PieChart3DViewPreview
-import com.sasasoyalan.composecomponents.componentpreviewlist.RatingViewPreview
-import com.sasasoyalan.composecomponents.componentpreviewlist.StepProgressIndicatorViewPreview
+import com.sasasoyalan.composecomponents.componentpreviews.AuthViewPreview
+import com.sasasoyalan.composecomponents.componentpreviews.BarChartViewPreview
+import com.sasasoyalan.composecomponents.componentpreviews.CommentInputViewPreview
+import com.sasasoyalan.composecomponents.componentpreviews.ExpandableListViewPreview
+import com.sasasoyalan.composecomponents.componentpreviews.PieChart3DViewPreview
+import com.sasasoyalan.composecomponents.componentpreviews.RatingViewPreview
+import com.sasasoyalan.composecomponents.componentpreviews.StepProgressIndicatorViewPreview
 
 fun getComponents() = listOf(
     ComponentItem("AuthView", { AuthViewPreview() }),
@@ -14,4 +15,5 @@ fun getComponents() = listOf(
     ComponentItem("BarChartView", { BarChartViewPreview() }),
     ComponentItem("PieChart3DView", { PieChart3DViewPreview() }),
     ComponentItem("StepProgressIndicatorView", { StepProgressIndicatorViewPreview() }),
+    ComponentItem("ExpandableListView", { ExpandableListViewPreview() }),
 )
