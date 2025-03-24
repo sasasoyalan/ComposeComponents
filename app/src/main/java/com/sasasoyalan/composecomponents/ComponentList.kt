@@ -2,6 +2,7 @@ package com.sasasoyalan.composecomponents
 
 import com.sasasoyalan.composecomponents.componentpreviews.AuthViewPreview
 import com.sasasoyalan.composecomponents.componentpreviews.BarChartViewPreview
+import com.sasasoyalan.composecomponents.componentpreviews.CollapsingHeaderViewPreview
 import com.sasasoyalan.composecomponents.componentpreviews.CommentInputViewPreview
 import com.sasasoyalan.composecomponents.componentpreviews.ExpandableListViewPreview
 import com.sasasoyalan.composecomponents.componentpreviews.PieChart3DViewPreview
@@ -16,4 +17,5 @@ fun getComponents() = listOf(
     ComponentItem("PieChart3DView", { PieChart3DViewPreview() }),
     ComponentItem("StepProgressIndicatorView", { StepProgressIndicatorViewPreview() }),
     ComponentItem("ExpandableListView", { ExpandableListViewPreview() }),
+    ComponentItem("CollapsingHeaderView", { CollapsingHeaderViewPreview() }),
 )
