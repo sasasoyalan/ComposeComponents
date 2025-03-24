@@ -46,7 +46,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: v${{ env.VERSION }}
-          name: "Release v${{ env.VERSION }}"
+          name: "Release ${{ env.VERSION }}"
           body: "New release version v${{ env.VERSION }} is now available!"
           draft: false
           prerelease: false
