@@ -47,7 +47,7 @@ jobs:
         with:
           tag_name: v${{ env.VERSION }}
           name: "Release ${{ env.VERSION }}"
-          body: "New release version v${{ env.VERSION }} is now available!"
+          body: "New release version ${{ env.VERSION }} is now available!"
           draft: false
           prerelease: false
         env:
