@@ -38,7 +38,7 @@ import androidx.compose.ui.unit.sp
  * If you use scrollable layouts like `LazyColumn` etc., pass the given `modifier` directly.
  * If you use non-scrollable layouts like `Column`, `Box`, etc., you **must** apply `.verticalScroll(rememberScrollState())` to the given `modifier`.
  *
- * Example usage:
+ * **Example usage:**
  * ```
  * bodyContent = { modifier, _ ->
  *      LazyColumn(modifier = modifier) { ... }
