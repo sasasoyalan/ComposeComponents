@@ -95,6 +95,7 @@ fun ComponentsPreview() {
             ModalBottomSheet(
                 onDismissRequest = { },
                 sheetState = sheetState,
+                sheetGesturesEnabled = false,
                 dragHandle = {
                     Card(
                         shape = RoundedCornerShape(50),
