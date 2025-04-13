@@ -29,4 +29,4 @@ dependencies {
 }
 ```
 
-<img src="https://i.imgur.com/sZWoZNN.png" alt="alt text" width="250" >      <img src="https://i.imgur.com/cdX33mM.png" alt="alt text" width="250" >     <img src="https://i.imgur.com/rsu3KGI.png" alt="alt text" width="250" >
+<img src="https://i.imgur.com/Sm5K1nD.png" alt="alt text" width="250" >      <img src="https://i.imgur.com/cdX33mM.png" alt="alt text" width="250" >     <img src="https://i.imgur.com/rsu3KGI.png" alt="alt text" width="250" >
