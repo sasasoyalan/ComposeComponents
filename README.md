@@ -6,7 +6,7 @@ It supports **easy integration, flexible structure, and dynamic modifications.**
 ---
 
 ## 🔥 Latest Version  
-**Current version:** `1.2.2`  
+**Current version:** `1.2.3`  
 
 📌 **To add this library to your project:**  
 
@@ -25,7 +25,7 @@ dependencyResolutionManagement {
 #### **2️⃣ Add the dependency to `app/build.gradle.kts`:**  
 ```kotlin
 dependencies {
-    implementation("com.github.sasasoyalan:ComposeComponents:1.2.2")
+    implementation("com.github.sasasoyalan:ComposeComponents:1.2.3")
 }
 ```
 
